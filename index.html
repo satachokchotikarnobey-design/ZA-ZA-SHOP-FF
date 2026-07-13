@@ -1,367 +1,491 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>ZA ZA SHOP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ ZAZA PANEL · ULTIMATE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{background:#0a0a0f;font-family:'Inter',sans-serif;color:#fff;min-height:100vh;padding:16px;}
-        .container{max-width:500px;margin:0 auto;}
-
-        .header{background:linear-gradient(145deg,#1a0a0a,#0d0d1a);border-bottom:3px solid #ff0040;padding:14px 0;text-align:center;border-radius:0 0 24px 24px;box-shadow:0 0 30px rgba(255,0,64,0.3);margin-bottom:16px;}
-        .header h1{font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#ff0040,#ff6600);-webkit-background-clip:text;background-clip:text;color:transparent;}
-        .header .sub{color:#ffaa88;font-size:0.65rem;}
-
-        .point-box{background:linear-gradient(145deg,#1a1a2e,#0d0d1a);border:2px solid #ffaa00;border-radius:40px;padding:6px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;box-shadow:0 0 20px rgba(255,170,0,0.15);}
-        .point-box .label{font-size:0.7rem;color:#ffaa00;}
-        .point-box .value{font-size:1.4rem;font-weight:900;color:#ffaa00;text-shadow:0 0 15px rgba(255,170,0,0.4);}
-
-        .card{background:rgba(20,20,40,0.8);backdrop-filter:blur(10px);border-radius:24px;padding:16px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 8px 25px rgba(0,0,0,0.5);}
-        .card-title{font-size:0.9rem;font-weight:700;margin-bottom:12px;color:#ffaa88;display:flex;align-items:center;gap:8px;}
-
-        .bank-info{background:#0d0d1a;border-radius:14px;padding:8px 14px;border:1px solid rgba(255,170,0,0.2);text-align:center;margin-bottom:10px;}
-        .bank-info .number{font-size:1.1rem;font-weight:800;color:#ffaa00;letter-spacing:1px;}
-        .bank-info .label{font-size:0.6rem;color:#aaa;}
-
-        .input-group{display:flex;gap:8px;margin:8px 0;}
-        .input-group input{flex:1;background:#0d0d1a;border:1px solid #2a2a4a;border-radius:30px;padding:8px 14px;color:#fff;font-size:0.9rem;outline:none;}
-        .input-group input:focus{border-color:#ffaa00;}
-        .input-group .btn{flex-shrink:0;}
-
-        .btn{padding:8px 18px;border-radius:30px;border:none;font-weight:700;font-size:0.85rem;cursor:pointer;transition:0.2s;}
-        .btn:active{transform:scale(0.95);}
-        .btn-gold{background:linear-gradient(135deg,#ffaa00,#ff6600);color:#0a0a0f;box-shadow:0 4px 15px rgba(255,170,0,0.3);}
-        .btn-red{background:linear-gradient(135deg,#ff0040,#cc0033);color:#fff;box-shadow:0 4px 15px rgba(255,0,64,0.3);}
-        .btn-small{padding:4px 12px;font-size:0.7rem;}
-        .btn-green{background:linear-gradient(135deg,#00cc66,#00aa44);color:#fff;box-shadow:0 4px 15px rgba(0,204,102,0.3);}
-        .btn-purple{background:linear-gradient(135deg,#9944ff,#6633cc);color:#fff;box-shadow:0 4px 15px rgba(153,68,255,0.3);}
-        .btn-outline{background:transparent;border:1px solid #555;color:#aaa;}
-
-        .shop-grid{display:flex;flex-direction:column;gap:8px;}
-        .shop-item{background:#0d0d1a;border-radius:14px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border:1px solid #2a2a4a;transition:0.2s;flex-wrap:wrap;gap:6px;}
-        .shop-item:hover{border-color:#ffaa00;background:#14142a;}
-        .shop-item .info{display:flex;flex-direction:column;}
-        .shop-item .name{font-weight:700;font-size:0.9rem;}
-        .shop-item .desc{font-size:0.6rem;color:#aaa;}
-        .shop-item .price{font-weight:800;color:#ffaa00;font-size:0.8rem;}
-        .shop-item .actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
-        .badge-owned{background:#00aa44;padding:2px 8px;border-radius:30px;font-size:0.55rem;font-weight:700;color:#fff;}
-
-        .toast{background:#1a1a2e;border-left:4px solid #ffaa00;padding:8px 14px;border-radius:10px;margin-top:8px;font-size:0.8rem;animation:fadeIn 0.3s ease;}
-        .toast-success{border-left-color:#00ff88;color:#00ff88;}
-        .toast-error{border-left-color:#ff0040;color:#ff0040;}
-        @keyframes fadeIn{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
-
-        .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px;}
-        .modal-content{background:#1a1a2e;border-radius:24px;padding:20px;max-width:400px;width:100%;max-height:80vh;overflow-y:auto;border:1px solid #ffaa00;}
-        .modal-content h2{color:#ffaa00;font-size:1.1rem;margin-bottom:12px;}
-        .modal-content .close{float:right;background:none;border:none;color:#ff0040;font-size:1.3rem;cursor:pointer;}
-        .modal-content .detail-item{padding:8px 0;border-bottom:1px solid #2a2a4a;font-size:0.85rem;}
-        .modal-content .detail-item:last-child{border-bottom:none;}
-
-        .admin-toggle{text-align:center;margin-top:6px;}
-        .admin-toggle button{background:transparent;border:1px solid #333;color:#555;padding:4px 14px;border-radius:30px;font-size:0.6rem;cursor:pointer;}
-        .admin-toggle button:hover{color:#fff;border-color:#ffaa00;}
-
-        .admin-panel{background:#0d0d1a;border-radius:16px;padding:14px;margin-top:8px;border:1px solid #ffaa0044;}
-        .admin-panel input{background:#1a1a2e;border:1px solid #333;border-radius:20px;padding:6px 12px;color:#fff;width:100%;margin-bottom:6px;font-size:0.8rem;}
-        .admin-panel .row{display:flex;gap:6px;flex-wrap:wrap;}
-        .admin-panel .row input{flex:1;min-width:80px;}
-
-        .purchase-list{background:#0d0d1a;border-radius:14px;padding:10px 14px;margin-top:8px;border:1px solid #2a2a4a;}
-        .purchase-list .item{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1a1a2e;font-size:0.75rem;}
-        .purchase-list .item:last-child{border-bottom:none;}
-        .purchase-list .status-success{color:#00ff88;}
-        .purchase-list .status-pending{color:#ffaa00;}
-
-        .footer{text-align:center;font-size:0.5rem;color:#333;margin-top:12px;}
-        .hidden{display:none;}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0e1a;
+            color: #eef2f7;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .panel {
+            max-width: 1400px;
+            width: 100%;
+            background: rgba(16, 20, 38, 0.8);
+            backdrop-filter: blur(16px);
+            border-radius: 40px;
+            padding: 28px 32px;
+            box-shadow: 0 30px 50px -15px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff2e63, #ff6b35);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .header .badge {
+            background: #ff2e63;
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255,46,99,0.3);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .stat-card {
+            background: rgba(255,255,255,0.04);
+            border-radius: 20px;
+            padding: 18px 20px;
+            border: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(4px);
+        }
+        .stat-card .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #8899bb;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-top: 4px;
+            background: linear-gradient(135deg, #fff, #aab);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+            margin: 28px 0 20px;
+        }
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 20px 22px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: 0.2s;
+            backdrop-filter: blur(4px);
+        }
+        .feature-card:hover {
+            border-color: rgba(255,46,99,0.3);
+            background: rgba(255,46,99,0.05);
+        }
+        .feature-card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #ff2e63;
+        }
+        .feature-card .title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+        }
+        .feature-card .desc {
+            font-size: 0.8rem;
+            color: #8899bb;
+        }
+        .toggle-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 14px;
+        }
+        .toggle {
+            width: 48px;
+            height: 26px;
+            background: #2a2f4a;
+            border-radius: 60px;
+            cursor: pointer;
+            position: relative;
+            transition: 0.2s;
+            flex-shrink: 0;
+        }
+        .toggle.active {
+            background: #ff2e63;
+        }
+        .toggle .ball {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: 0.25s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .toggle.active .ball {
+            left: 25px;
+        }
+        .slider-group {
+            margin: 22px 0 10px;
+        }
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #bcc8e0;
+        }
+        input[type="range"] {
+            width: 100%;
+            accent-color: #ff2e63;
+            background: transparent;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ff2e63, #ff6b35);
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 12px 24px;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 6px 20px rgba(255,46,99,0.25);
+        }
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(255,46,99,0.4);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .log-area {
+            margin-top: 28px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 18px;
+            padding: 16px 20px;
+            max-height: 180px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.04);
+            color: #aab8d9;
+        }
+        .log-area .log-entry {
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .log-area .log-entry .time {
+            color: #667;
+            margin-right: 12px;
+        }
+        .log-area .log-entry .highlight {
+            color: #ff6b35;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        .status-badge.on {
+            background: #00b894;
+            color: #fff;
+        }
+        .status-badge.off {
+            background: #2a2f4a;
+            color: #8899bb;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #445;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            padding-top: 18px;
+        }
+        @media (max-width: 600px) {
+            .panel { padding: 18px; }
+            .header h1 { font-size: 1.4rem; }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-
+<div class="panel" id="app">
+    <!-- HEADER -->
     <div class="header">
-        <h1>🔥 ZA ZA SHOP 🔥</h1>
-        <div class="sub">ร้านขายตั้งค่าเกมโคตรโหด</div>
-    </div>
-
-    <div class="point-box">
-        <span class="label"><i class="fas fa-coins"></i> พอยต์</span>
-        <span class="value" id="pointDisplay">0</span>
-    </div>
-
-    <div class="card">
-        <div class="card-title"><i class="fas fa-wallet"></i> 💰 เติมเงิน</div>
-        <div class="bank-info">
-            <div class="label">💳 โอนไปที่</div>
-            <div class="number">064-703-83999</div>
+        <div>
+            <h1><i class="fas fa-bolt" style="color:#ff2e63;"></i> ZAZA PANEL</h1>
+            <div style="font-size:0.75rem;color:#667;margin-top:2px;">⚡ ระบบควบคุมเกม &amp; จัดการสินค้า</div>
         </div>
-        <div class="input-group">
-            <input type="number" id="amountInput" placeholder="จำนวน (บาท)" min="1">
-            <button class="btn btn-gold" id="confirmBtn">ยืนยัน</button>
+        <div class="badge"><i class="fas fa-circle" style="font-size:0.5rem;color:#0f0;margin-right:6px;"></i> ออนไลน์</div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card"><div class="label">🕹️ สมาชิกออนไลน์</div><div class="value" id="onlineUsers">127</div></div>
+        <div class="stat-card"><div class="label">🎯 ล็อคหัวสำเร็จ</div><div class="value" id="headshots">8,432</div></div>
+        <div class="stat-card"><div class="label">📦 สินค้าทั้งหมด</div><div class="value" id="totalProducts">24</div></div>
+        <div class="stat-card"><div class="label">💰 คำสั่งซื้อวันนี้</div><div class="value" id="todayOrders">₿ 12</div></div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="features-grid">
+        <!-- 1. ล็อคหัว -->
+        <div class="feature-card">
+            <div class="icon"><i class="fas fa-crosshairs"></i></div>
+            <div class="title">🎯 ล็อคหัว 100%</div>
+            <div class="desc">ล็อคเป้าหมายอัตโนมัติที่หัว 100%</div>
+            <div class="toggle-wrap">
+                <div class="toggle active" id="toggleAimbot" onclick="toggleFeature('aimbot')"><div class="ball"></div></div>
+                <span id="aimbotStatus" style="font-weight:600;color:#0f0;">ON</span>
+            </div>
         </div>
-        <div id="toastContainer"></div>
-    </div>
-
-    <div class="card">
-        <div class="card-title"><i class="fas fa-store"></i> 🛒 สินค้า</div>
-        <div class="shop-grid" id="shopContainer"></div>
-    </div>
-
-    <div class="card">
-        <div class="card-title"><i class="fas fa-list"></i> 📦 คำสั่งซื้อของฉัน</div>
-        <div id="purchaseListContainer" class="purchase-list">
-            <div style="color:#666;font-size:0.7rem;text-align:center;padding:6px 0;">ยังไม่มีคำสั่งซื้อ</div>
+        <!-- 2. ดูดหัว -->
+        <div class="feature-card">
+            <div class="icon"><i class="fas fa-magnet"></i></div>
+            <div class="title">🧲 ดูดหัว</div>
+            <div class="desc">ดูดกระสุนไปที่หัวอัตโนมัติ</div>
+            <div class="toggle-wrap">
+                <div class="toggle" id="toggleMagnet" onclick="toggleFeature('magnet')"><div class="ball"></div></div>
+                <span id="magnetStatus" style="font-weight:600;color:#8899bb;">OFF</span>
+            </div>
+        </div>
+        <!-- 3. ESP -->
+        <div class="feature-card">
+            <div class="icon"><i class="fas fa-eye"></i></div>
+            <div class="title">👁️ ESP (เห็นศัตรู)</div>
+            <div class="desc">เห็นศัตรูผ่านกำแพง</div>
+            <div class="toggle-wrap">
+                <div class="toggle" id="toggleESP" onclick="toggleFeature('esp')"><div class="ball"></div></div>
+                <span id="espStatus" style="font-weight:600;color:#8899bb;">OFF</span>
+            </div>
+        </div>
+        <!-- 4. No Recoil -->
+        <div class="feature-card">
+            <div class="icon"><i class="fas fa-crosshairs"></i></div>
+            <div class="title">🔫 No Recoil</div>
+            <div class="desc">ไร้แรงดีดปืน</div>
+            <div class="toggle-wrap">
+                <div class="toggle" id="toggleRecoil" onclick="toggleFeature('recoil')"><div class="ball"></div></div>
+                <span id="recoilStatus" style="font-weight:600;color:#8899bb;">OFF</span>
+            </div>
+        </div>
+        <!-- 5. Auto Aim -->
+        <div class="feature-card">
+            <div class="icon"><i class="fas fa-robot"></i></div>
+            <div class="title">🤖 Auto Aim</div>
+            <div class="desc">เล็งอัตโนมัติเมื่อมีศัตรู</div>
+            <div class="toggle-wrap">
+                <div class="toggle" id="toggleAutoAim" onclick="toggleFeature('autoaim')"><div class="ball"></div></div>
+                <span id="autoaimStatus" style="font-weight:600;color:#8899bb;">OFF</span>
+            </div>
+        </div>
+        <!-- 6. Speed Hack -->
+        <div class="feature-card">
+            <div class="icon"><i class="fas fa-bolt"></i></div>
+            <div class="title">⚡ Speed Hack</div>
+            <div class="desc">เพิ่มความเร็วเดิน 2x</div>
+            <div class="toggle-wrap">
+                <div class="toggle" id="toggleSpeed" onclick="toggleFeature('speed')"><div class="ball"></div></div>
+                <span id="speedStatus" style="font-weight:600;color:#8899bb;">OFF</span>
+            </div>
         </div>
     </div>
 
-    <div class="admin-toggle">
-        <button id="adminToggleBtn">🔧 จัดการสินค้า</button>
+    <!-- SLIDERS -->
+    <div class="slider-group">
+        <label>🎯 ความไวล็อคหัว <span id="sensitivityVal">85</span>%</label>
+        <input type="range" id="sensitivity" min="10" max="100" value="85" oninput="document.getElementById('sensitivityVal').innerText=this.value">
+    </div>
+    <div class="slider-group">
+        <label>📡 ระยะตรวจจับศัตรู <span id="rangeVal">120</span>ม.</label>
+        <input type="range" id="detectRange" min="20" max="200" value="120" oninput="document.getElementById('rangeVal').innerText=this.value">
     </div>
 
-    <div class="card admin-panel hidden" id="adminPanel">
-        <div class="card-title" style="font-size:0.8rem;"><i class="fas fa-user-cog"></i> 👑 แผงแอดมิน</div>
-        <input type="text" id="adminItemName" placeholder="ชื่อสินค้า">
-        <input type="text" id="adminItemDesc" placeholder="คำอธิบาย">
-        <div class="row">
-            <input type="number" id="adminItemPrice" placeholder="ราคา" min="1">
-            <button class="btn btn-green btn-small" id="adminAddBtn"><i class="fas fa-plus"></i> เพิ่ม</button>
-        </div>
-        <div id="adminItemList" style="font-size:0.7rem; max-height:150px; overflow-y:auto; margin-top:8px;"></div>
-        <div style="font-size:0.55rem;color:#555;margin-top:4px;">💡 คลิกชื่อสินค้าเพื่อแก้ไข • ถังขยะเพื่อลบ</div>
+    <!-- ACTION BUTTONS -->
+    <div class="flex-row">
+        <button class="btn-primary" onclick="activateAll()"><i class="fas fa-play"></i> เปิดทั้งหมด</button>
+        <button class="btn-secondary" onclick="deactivateAll()"><i class="fas fa-stop"></i> ปิดทั้งหมด</button>
+        <button class="btn-secondary" onclick="addLog('🧹 รีเซ็ตสถิติเรียบร้อย')"><i class="fas fa-undo-alt"></i> รีเซ็ต</button>
     </div>
 
-    <div class="modal hidden" id="detailModal">
-        <div class="modal-content">
-            <button class="close" id="modalCloseBtn">&times;</button>
-            <h2 id="modalTitle">📦 รายละเอียด</h2>
-            <div id="modalBody"></div>
-        </div>
+    <!-- LOG -->
+    <div class="log-area" id="logArea">
+        <div class="log-entry"><span class="time">[12:34]</span> 🚀 เปิดระบบ ZAZA PANEL</div>
+        <div class="log-entry"><span class="time">[12:34]</span> 🎯 ล็อคหัว เปิดใช้งาน</div>
+        <div class="log-entry"><span class="time">[12:35]</span> 👁️ ESP เปิดใช้งาน</div>
     </div>
 
-    <div class="footer">⚡ ZA ZA SHOP · ตั้งค่าเกมโคตรโหด ⚡</div>
+    <footer>
+        ⚡ ZAZA PANEL · ระบบควบคุมเกมและจัดการสินค้า  <span style="color:#445;">|</span>  ภาษาไทย 100%
+    </footer>
 </div>
 
 <script>
-    // ===== DATA =====
-    const DEFAULT_ITEMS = [
-        { id: 1, name: '🎯 ตั้งค่าไฮไลท์', desc: 'เล็งแม่น ติดหัวง่าย', price: 20 },
-        { id: 2, name: '⚡ ตั้งค่าโคตรคม', desc: 'ไวส์ไว ตอบสนองแรง', price: 30 },
-        { id: 3, name: '💀 ตั้งค่าโคตรโหด', desc: 'จัดเต็ม ไม่มีใครสู้', price: 50 },
-        { id: 4, name: '👑 ตั้งค่าสุดหล่อ', desc: 'เทพสุดในเกม', price: 40 },
-        { id: 5, name: '🔥 เซ็ตสปีดไลท์', desc: 'เคลื่อนไหวเร็วเหมือนแสง', price: 25 },
-    ];
+    // ===================== STATE =====================
+    const features = {
+        aimbot: false,
+        magnet: false,
+        esp: false,
+        recoil: false,
+        autoaim: false,
+        speed: false
+    };
 
-    let items = JSON.parse(localStorage.getItem('zaza_items')) || DEFAULT_ITEMS;
-    let points = parseInt(localStorage.getItem('zaza_points')) || 0;
-    let purchases = JSON.parse(localStorage.getItem('zaza_purchases')) || [];
+    const statusMap = {
+        aimbot: { el: 'aimbotStatus', toggle: 'toggleAimbot' },
+        magnet: { el: 'magnetStatus', toggle: 'toggleMagnet' },
+        esp: { el: 'espStatus', toggle: 'toggleESP' },
+        recoil: { el: 'recoilStatus', toggle: 'toggleRecoil' },
+        autoaim: { el: 'autoaimStatus', toggle: 'toggleAutoAim' },
+        speed: { el: 'speedStatus', toggle: 'toggleSpeed' }
+    };
 
-    // ===== DOM =====
-    const $ = id => document.getElementById(id);
-    const pointDisplay = $('pointDisplay');
-    const amountInput = $('amountInput');
-    const confirmBtn = $('confirmBtn');
-    const toastContainer = $('toastContainer');
-    const shopContainer = $('shopContainer');
-    const purchaseListContainer = $('purchaseListContainer');
-    const adminPanel = $('adminPanel');
-    const adminToggleBtn = $('adminToggleBtn');
-    const adminItemName = $('adminItemName');
-    const adminItemDesc = $('adminItemDesc');
-    const adminItemPrice = $('adminItemPrice');
-    const adminAddBtn = $('adminAddBtn');
-    const adminItemList = $('adminItemList');
-    const modal = $('detailModal');
-    const modalCloseBtn = $('modalCloseBtn');
-    const modalTitle = $('modalTitle');
-    const modalBody = $('modalBody');
-
-    let adminVisible = false;
-
-    // ===== FUNCTIONS =====
-    function saveAll() {
-        localStorage.setItem('zaza_items', JSON.stringify(items));
-        localStorage.setItem('zaza_points', points.toString());
-        localStorage.setItem('zaza_purchases', JSON.stringify(purchases));
+    // ===================== TOGGLE =====================
+    function toggleFeature(key) {
+        features[key] = !features[key];
+        updateUI(key);
+        const status = features[key] ? 'ON' : 'OFF';
+        const color = features[key] ? '#0f0' : '#8899bb';
+        document.getElementById(statusMap[key].el).innerText = status;
+        document.getElementById(statusMap[key].el).style.color = color;
+        // toggle class
+        const toggleEl = document.getElementById(statusMap[key].toggle);
+        toggleEl.classList.toggle('active', features[key]);
+        // log
+        const names = {
+            aimbot: '🎯 ล็อคหัว',
+            magnet: '🧲 ดูดหัว',
+            esp: '👁️ ESP',
+            recoil: '🔫 No Recoil',
+            autoaim: '🤖 Auto Aim',
+            speed: '⚡ Speed Hack'
+        };
+        addLog(`${names[key]} ${features[key] ? '🟢 เปิด' : '🔴 ปิด'}`);
     }
 
-    function updatePointsUI() {
-        pointDisplay.textContent = points.toLocaleString();
-        saveAll();
+    function updateUI(key) {
+        // already done per toggle
     }
 
-    function addToast(msg, type = 'success') {
-        const div = document.createElement('div');
-        div.className = `toast toast-${type}`;
-        div.textContent = msg;
-        toastContainer.appendChild(div);
-        setTimeout(() => { div.style.opacity = '0'; div.style.transition = 'opacity 0.3s'; setTimeout(() => div.remove(), 400); }, 3500);
-    }
-
-    function renderShop() {
-        shopContainer.innerHTML = '';
-        items.forEach(item => {
-            const owned = purchases.some(p => p.itemId === item.id && p.status === 'success');
-            const pending = purchases.some(p => p.itemId === item.id && p.status === 'pending');
-            const div = document.createElement('div');
-            div.className = 'shop-item';
-            div.innerHTML = `
-                <div class="info">
-                    <div class="name">${item.name}</div>
-                    <div class="desc">${item.desc}</div>
-                </div>
-                <div class="actions">
-                    <span class="price">${item.price} พอยต์</span>
-                    ${owned ? '<span class="badge-owned">✅ มีแล้ว</span>' : ''}
-                    ${pending ? '<span class="badge-owned" style="background:#ffaa00;">⏳ กำลังทำ</span>' : ''}
-                    ${!owned && !pending ? `<button class="btn btn-red btn-small shop-buy" data-id="${item.id}">ซื้อ</button>` : ''}
-                    <button class="btn btn-purple btn-small shop-detail" data-id="${item.id}"><i class="fas fa-info-circle"></i></button>
-                </div>
-            `;
-            shopContainer.appendChild(div);
-        });
-
-        document.querySelectorAll('.shop-buy').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = parseInt(this.dataset.id);
-                const item = items.find(i => i.id === id);
-                if (!item) return;
-                if (purchases.some(p => p.itemId === id && p.status === 'success')) {
-                    addToast(`⚠️ มี "${item.name}" อยู่แล้ว`, 'error');
-                    return;
-                }
-                if (purchases.some(p => p.itemId === id && p.status === 'pending')) {
-                    addToast(`⏳ "${item.name}" กำลังดำเนินการ`, 'error');
-                    return;
-                }
-                if (points < item.price) {
-                    addToast(`❌ พอยต์ไม่พอ! ต้องการ ${item.price} พอยต์`, 'error');
-                    return;
-                }
-                points -= item.price;
-                purchases.push({ itemId: item.id, name: item.name, status: 'pending', date: new Date().toLocaleString() });
-                saveAll();
-                updatePointsUI();
-                renderShop();
-                renderPurchases();
-                addToast(`✅ สั่งซื้อ "${item.name}" สำเร็จ! กำลังดำเนินการ`, 'success');
-                // จำลองว่า 2 วิแล้วเสร็จ
-                setTimeout(() => {
-                    const p = purchases.find(p => p.itemId === item.id && p.status === 'pending');
-                    if (p) { p.status = 'success'; saveAll(); renderShop(); renderPurchases(); addToast(`🎉 "${item.name}" พร้อมใช้งานแล้ว!`, 'success'); }
-                }, 2000);
-            });
-        });
-
-        document.querySelectorAll('.shop-detail').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const id = parseInt(this.dataset.id);
-                const item = items.find(i => i.id === id);
-                if (!item) return;
-                const owned = purchases.some(p => p.itemId === id && p.status === 'success');
-                modalTitle.textContent = `📦 ${item.name}`;
-                modalBody.innerHTML = `
-                    <div class="detail-item"><strong>📝</strong> ${item.desc}</div>
-                    <div class="detail-item"><strong>💰</strong> ${item.price} พอยต์</div>
-                    <div class="detail-item"><strong>📦</strong> ${owned ? '✅ ซื้อแล้ว' : '❌ ยังไม่ได้ซื้อ'}</div>
-                    ${!owned ? `<button class="btn btn-red" style="width:100%;margin-top:10px;" onclick="document.querySelector('.shop-buy[data-id=\\'${item.id}\\']')?.click(); closeModal();">💳 ซื้อเลย</button>` : ''}
-                `;
-                modal.classList.remove('hidden');
-            });
-        });
-    }
-
-    function renderPurchases() {
-        if (purchases.length === 0) {
-            purchaseListContainer.innerHTML = '<div style="color:#666;font-size:0.7rem;text-align:center;padding:6px 0;">ยังไม่มีคำสั่งซื้อ</div>';
-            return;
+    function activateAll() {
+        for (const key in features) {
+            if (!features[key]) {
+                features[key] = true;
+                const toggleEl = document.getElementById(statusMap[key].toggle);
+                toggleEl.classList.add('active');
+                document.getElementById(statusMap[key].el).innerText = 'ON';
+                document.getElementById(statusMap[key].el).style.color = '#0f0';
+            }
         }
-        let html = '';
-        purchases.slice().reverse().forEach(p => {
-            const statusText = p.status === 'success' ? '✅ สำเร็จ' : '⏳ กำลังทำ';
-            const statusClass = p.status === 'success' ? 'status-success' : 'status-pending';
-            html += `<div class="item"><span>${p.name}</span><span class="${statusClass}">${statusText}</span></div>`;
-        });
-        purchaseListContainer.innerHTML = html;
+        addLog('🔥 เปิดฟังก์ชันทั้งหมด');
     }
 
-    function renderAdminItems() {
-        adminItemList.innerHTML = '';
-        items.forEach(item => {
-            const div = document.createElement('div');
-            div.style.cssText = 'display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #1a1a2e;cursor:pointer;';
-            div.innerHTML = `<span>${item.name} (${item.price})</span><span style="color:#ff0040;" data-id="${item.id}" class="admin-del"><i class="fas fa-trash"></i></span>`;
-            div.addEventListener('click', function(e) {
-                if (e.target.closest('.admin-del')) return;
-                const name = prompt('ชื่อ:', item.name);
-                if (name && name.trim()) { item.name = name.trim(); }
-                const desc = prompt('คำอธิบาย:', item.desc);
-                if (desc !== null) item.desc = desc.trim() || item.desc;
-                const price = prompt('ราคา:', item.price);
-                if (price !== null && !isNaN(price) && parseInt(price) > 0) item.price = parseInt(price);
-                saveAll(); renderShop(); renderAdminItems(); addToast('✅ อัปเดตแล้ว', 'success');
-            });
-            const del = div.querySelector('.admin-del');
-            del.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const id = parseInt(this.dataset.id);
-                if (confirm(`ลบ "${item.name}"?`)) {
-                    items = items.filter(i => i.id !== id);
-                    purchases = purchases.filter(p => p.itemId !== id);
-                    saveAll(); renderShop(); renderAdminItems(); renderPurchases(); addToast(`🗑️ ลบแล้ว`, 'error');
-                }
-            });
-            adminItemList.appendChild(div);
-        });
+    function deactivateAll() {
+        for (const key in features) {
+            if (features[key]) {
+                features[key] = false;
+                const toggleEl = document.getElementById(statusMap[key].toggle);
+                toggleEl.classList.remove('active');
+                document.getElementById(statusMap[key].el).innerText = 'OFF';
+                document.getElementById(statusMap[key].el).style.color = '#8899bb';
+            }
+        }
+        addLog('⛔ ปิดฟังก์ชันทั้งหมด');
     }
 
-    function closeModal() { modal.classList.add('hidden'); }
+    // ===================== LOG =====================
+    function addLog(msg) {
+        const logArea = document.getElementById('logArea');
+        const entry = document.createElement('div');
+        entry.className = 'log-entry';
+        const now = new Date();
+        const time = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+        entry.innerHTML = `<span class="time">[${time}]</span> ${msg}`;
+        logArea.appendChild(entry);
+        logArea.scrollTop = logArea.scrollHeight;
+        if (logArea.children.length > 50) logArea.removeChild(logArea.children[0]);
+    }
 
-    // ===== EVENTS =====
-    confirmBtn.onclick = function() {
-        const amt = parseInt(amountInput.value);
-        if (!amt || amt < 1) { addToast('⚠️ กรอกจำนวนให้ถูกต้อง', 'error'); return; }
-        points += amt;
-        saveAll(); updatePointsUI(); renderShop();
-        addToast(`💥 เติม ${amt} บาท รับ ${amt} พอยต์!`, 'success');
-        amountInput.value = '';
-    };
-    amountInput.addEventListener('keypress', e => { if (e.key === 'Enter') confirmBtn.click(); });
+    // ===================== STATS (จำลอง) =====================
+    function randomStat() {
+        // จำลองตัวเลขให้ดูมีชีวิต
+        const users = 120 + Math.floor(Math.random() * 20);
+        const hs = 8400 + Math.floor(Math.random() * 200);
+        const products = 24 + Math.floor(Math.random() * 3);
+        const orders = 10 + Math.floor(Math.random() * 8);
+        document.getElementById('onlineUsers').innerText = users;
+        document.getElementById('headshots').innerText = hs.toLocaleString();
+        document.getElementById('totalProducts').innerText = products;
+        document.getElementById('todayOrders').innerText = '₿ ' + orders;
+    }
 
-    adminToggleBtn.onclick = function() {
-        adminVisible = !adminVisible;
-        adminPanel.classList.toggle('hidden', !adminVisible);
-        this.textContent = adminVisible ? '🔒 ปิดแผง' : '🔧 จัดการสินค้า';
-        if (adminVisible) renderAdminItems();
-    };
+    // ===================== INIT =====================
+    // เปิด aimbot เป็น default
+    features.aimbot = true;
+    document.getElementById('toggleAimbot').classList.add('active');
+    document.getElementById('aimbotStatus').innerText = 'ON';
+    document.getElementById('aimbotStatus').style.color = '#0f0';
 
-    adminAddBtn.onclick = function() {
-        const name = adminItemName.value.trim();
-        const desc = adminItemDesc.value.trim();
-        const price = parseInt(adminItemPrice.value);
-        if (!name) { addToast('⚠️ ใส่ชื่อ', 'error'); return; }
-        if (!price || price < 1) { addToast('⚠️ ใส่ราคา', 'error'); return; }
-        const newId = items.length ? Math.max(...items.map(i => i.id)) + 1 : 1;
-        items.push({ id: newId, name, desc: desc || 'ไม่มีคำอธิบาย', price });
-        saveAll(); renderShop(); renderAdminItems();
-        adminItemName.value = ''; adminItemDesc.value = ''; adminItemPrice.value = '';
-        addToast(`✅ เพิ่ม "${name}"`, 'success');
-    };
+    setInterval(randomStat, 3000);
+    randomStat();
 
-    modalCloseBtn.onclick = closeModal;
-    modal.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+    // โหลดค่า sensitivity / range
+    document.getElementById('sensitivityVal').innerText = document.getElementById('sensitivity').value;
+    document.getElementById('rangeVal').innerText = document.getElementById('detectRange').value;
 
-    // ===== INIT =====
-    updatePointsUI();
-    renderShop();
-    renderPurchases();
-    setTimeout(() => addToast(`🔥 ยินดีต้อนรับ! พอยต์ ${points}`, 'success'), 300);
+    addLog('🔥 ZAZA PANEL พร้อมใช้งาน (ล็อคหัว + ดูดหัว + ESP + ครบ)');
 </script>
 </body>
-</html
-  
+</html>
